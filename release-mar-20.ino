@@ -240,14 +240,19 @@ void program3(int sleep=300) {
   pullF();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushF();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullC();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushC();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -261,14 +266,19 @@ void program4(int sleep=300) {
   pullA();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushA();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pushC();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pullC();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -282,14 +292,19 @@ void program5(int sleep=300) {
   pullF();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushF();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullE();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushE();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -303,14 +318,19 @@ void program6(int sleep=300) {
   pullA();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushA();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullE();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushE();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -324,14 +344,19 @@ void program7(int sleep=300) {
   pullC();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushC();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullF();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushF();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -345,14 +370,19 @@ void program8(int sleep=300) {
   pullA();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushA();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullF();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushF();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -366,14 +396,19 @@ void program9(int sleep=300) {
   pullC();
   pushD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushC();
   pullD();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushD();
   pullE();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   pushE();
   pullD();
+  if (checkRemoteAndSleep(sleep)) return;
+  allOff();
   if (checkRemoteAndSleep(sleep)) return;
 }
 
@@ -408,9 +443,11 @@ void program10(int sleep=300) {
   allOff();
   pushE();
   if (checkRemoteAndSleep(sleep)) return;
+  allOff();
+  if (checkRemoteAndSleep(sleep)) return;
 }
 
-VoidFunctionWithOneParam programs[] = {program1, program2, program3, program4, program5, program6, program7, program8, program9, program10};
+VoidFunctionWithOneParam programs[] = {program10, program1, program2, program3, program4, program5, program6, program7, program8, program9};
 
 void loop() {
   if (currentProgram == -1) {
