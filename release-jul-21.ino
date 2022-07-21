@@ -2,7 +2,7 @@
 #include <IRremote.h>
 
 #define NUMPIXELS 3
-#define TOTALPROGRAMS 10
+#define TOTALPROGRAMS 11
 
 #define SLEEPINTERVAL 5
 #define SLEEPTIME 3000
@@ -26,6 +26,7 @@ int currentProgram = 0;
 int colorIndex = 0;
 int frames = 0;
 int offFrames = 0;
+bool colorCycleSet = false;
 
 int AIN2 = 5;
 int AIN1 = 4;
@@ -136,12 +137,18 @@ void allOff() {
 
 
 void updateColorIndex() {
-  for (int i=0;i<16;i++) {
-    int newColorIndex = random(0,16);
-    if (newColorIndex == colorIndex) continue;
-    colorIndex = newColorIndex;
-    break;
+  if (colorCycleSet == true) {
+    if (colorIndex == 15)  {
+      colorIndex = 0;
+    }
+    else {
+      colorIndex += 1;      
+    }
+    return;
   }
+
+  colorIndex = random(0,16);
+  colorCycleSet = true;
 }
 
 void setup() {
@@ -150,7 +157,6 @@ void setup() {
   
   // put your setup code here, to run once:
   pinMode(A0, OUTPUT);
-//  updateColorIndex();
   colorIndex = 9;
 }
 
@@ -164,6 +170,7 @@ boolean checkRemoteAndSleep(int sleep=300) {
       if (results.value == POWER) {
         frames = 0;
         offFrames = 0;
+        colorCycleSet = false;
         Serial.println("Power button pressed.");
         updateColorIndex();
         if (currentProgram == -1) currentProgram = 0;
@@ -228,15 +235,15 @@ void setColor() {
     case 4:
       pixels.begin();
       pixels.setPixelColor(0, pixels.Color(0, 0, 100));
-      pixels.setPixelColor(1, pixels.Color(0, 0, 255));
-      pixels.setPixelColor(2, pixels.Color(0, 0, 200));
+      pixels.setPixelColor(1, pixels.Color(0, 0, 100));
+      pixels.setPixelColor(2, pixels.Color(0, 0, 100));
       pixels.show();
       break;
     case 5:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(139, 69, 19));
-      pixels.setPixelColor(1, pixels.Color(139, 69, 19));
-      pixels.setPixelColor(2, pixels.Color(139, 69, 19));
+      pixels.setPixelColor(0, pixels.Color(50, 50, 50));
+      pixels.setPixelColor(1, pixels.Color(50, 50, 50));
+      pixels.setPixelColor(2, pixels.Color(50, 50, 50));
       pixels.show();
       break;
     case 6:
@@ -255,9 +262,9 @@ void setColor() {
       break;
     case 8:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(150, 50, 100));
-      pixels.setPixelColor(1, pixels.Color(100, 150, 50));
-      pixels.setPixelColor(2, pixels.Color(50, 100, 150));
+      pixels.setPixelColor(0, pixels.Color(255, 69, 0));
+      pixels.setPixelColor(1, pixels.Color(255, 69, 0));
+      pixels.setPixelColor(2, pixels.Color(255, 69, 0));
       pixels.show();
       break;
     case 9:
@@ -269,44 +276,44 @@ void setColor() {
       break;
     case 10:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(75, 0, 150));
-      pixels.setPixelColor(1, pixels.Color(150, 75, 75));
-      pixels.setPixelColor(2, pixels.Color(255, 150, 0));
+      pixels.begin();
+      pixels.setPixelColor(0, pixels.Color(119, 69, 19));
+      pixels.setPixelColor(1, pixels.Color(119, 69, 19));
+      pixels.setPixelColor(2, pixels.Color(119, 69, 19));
       pixels.show();
-      break;
     case 11:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(0, 75, 150));
-      pixels.setPixelColor(1, pixels.Color(75, 150, 75));
-      pixels.setPixelColor(2, pixels.Color(150, 255, 0));
+      pixels.setPixelColor(0, pixels.Color(8, 136, 8));
+      pixels.setPixelColor(1, pixels.Color(8, 70, 70));
+      pixels.setPixelColor(2, pixels.Color(8, 8, 136));
       pixels.show();
       break;
     case 12:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(150, 0, 75));
-      pixels.setPixelColor(1, pixels.Color(0,  75, 150));
-      pixels.setPixelColor(2, pixels.Color(75, 150, 255));
+      pixels.setPixelColor(0, pixels.Color(50, 130, 10));
+      pixels.setPixelColor(1, pixels.Color(50, 130, 10));
+      pixels.setPixelColor(2, pixels.Color(50, 130, 10));
       pixels.show();
       break;
     case 13:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(random(50,255), random(100,255), random(100,255)));
-      pixels.setPixelColor(1, pixels.Color(random(100,255),  random(100,255), random(50,255)));
-      pixels.setPixelColor(2, pixels.Color(random(100,255), random(50,255), random(100,255)));
+      pixels.setPixelColor(0, pixels.Color(139, 69, 19));
+      pixels.setPixelColor(1, pixels.Color(139, 69, 19));
+      pixels.setPixelColor(2, pixels.Color(139, 69, 19));
       pixels.show();
       break;
     case 14:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(255, 192, 203));
-      pixels.setPixelColor(1, pixels.Color(random(2,255),  random(82,192), random(156,203)));
-      pixels.setPixelColor(2, pixels.Color(2, 82, 156));
+      pixels.setPixelColor(0, pixels.Color(175, 0, 42));
+      pixels.setPixelColor(1, pixels.Color(175, 0, 42));
+      pixels.setPixelColor(2, pixels.Color(175, 0, 42));
       pixels.show();
       break;
     case 15:
       pixels.begin();
-      pixels.setPixelColor(0, pixels.Color(random(0,100), random(0,100), random(0,100)));
-      pixels.setPixelColor(1, pixels.Color(random(0,100), random(0,100),random(0,100)));
-      pixels.setPixelColor(2, pixels.Color(random(0,100), random(0,100), random(0,100)));
+      pixels.setPixelColor(0, pixels.Color(255, 255, 0));
+      pixels.setPixelColor(1, pixels.Color(255, 255, 0));
+      pixels.setPixelColor(2, pixels.Color(255, 255, 0));
       pixels.show();
       break;
     default:
@@ -542,7 +549,54 @@ void program10(int sleep=300) {
   if (checkRemoteAndSleep(sleep/2)) return;
 }
 
-VoidFunctionWithOneParam programs[] = {program10, program1, program2, program3, program4, program5, program6, program7, program8, program9};
+
+void program11(int sleep=300) {
+  for (int j = 0;j<3;j++) {
+    for (int i = 0; i < 2; i++) {
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pullA();
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pullC();
+    }
+    //
+    for (int i = 0; i < 2; i++) {
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pullF();
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pullE();
+    }
+    //
+    for (int i = 0; i < 2; i++) {
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pushA();
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pushC();
+    }
+    //
+    for (int i = 0; i < 2; i++) {
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pushF();
+      if (checkRemoteAndSleep(sleep/6)) return;
+      allOff();
+      pushE();
+    }
+    //
+    if (checkRemoteAndSleep(sleep/6)) return;
+    allOff();
+  }
+  
+  if (checkRemoteAndSleep(sleep)) return;
+}
+
+
+VoidFunctionWithOneParam programs[] = {program10, program1, program2, program3, program4, program5, program6, program7, program8, program9, program11};
 
 void loop() {
   if (currentProgram == -1) {
